@@ -11,3 +11,4 @@ The MVP for this bot will allow people to create/cancel events, set up reminders
 
 I plan on using Java, Spring, SQL, and React for the front end. 
 
+![](https://github.com/nganttong/Passion-Project-Discord-Scheduler/blob/main/Dicord%20Scheduler.pdf)
