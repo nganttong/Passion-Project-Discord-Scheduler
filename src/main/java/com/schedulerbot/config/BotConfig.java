@@ -1,4 +1,5 @@
-package com.schedulerbot;
+package com.schedulerbot.config;
+import com.schedulerbot.EventListener;
 import discord4j.core.DiscordClientBuilder;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.Event;
