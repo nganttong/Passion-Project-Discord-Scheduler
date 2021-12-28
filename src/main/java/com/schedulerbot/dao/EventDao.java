@@ -2,11 +2,15 @@ package com.schedulerbot.dao;
 
 import com.schedulerbot.models.Event;
 
+import java.sql.Statement;
 import java.util.List;
 
 public class EventDao implements Dao<Event> {
     @Override
     public Event getById(int id) {
+//        try{
+//            Statement statement = connection.createStatement();
+//        }
         return null;
     }
 
