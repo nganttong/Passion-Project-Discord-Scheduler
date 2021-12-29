@@ -9,6 +9,6 @@ The Scheduler bot will add convenience for matching schedules, encourage get-tog
 
 The MVP for this bot will allow people to create/cancel events, set up reminders for those attending, be able to edit or change events and notify the people attending, and set up or state rules of different tabletop games. 
 
-I plan on using Java, Spring, SQL, and React for the front end. 
+I plan on using Java, Spring, SQL, Heroku for the back end and React for the front end. 
 
 ![](https://github.com/nganttong/Passion-Project-Discord-Scheduler/blob/7951dc5910816654cb715182a464395ce70714a2/docs/discordshceduler.png)
