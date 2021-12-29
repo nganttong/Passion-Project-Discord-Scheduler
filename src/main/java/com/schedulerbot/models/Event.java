@@ -12,12 +12,21 @@ public class Event {
     Date date;
     Time time;
     String description;
+    int id;
 
     public Event(String title, Date date, Time time, String description) {
         this.title = title;
         this.date = date;
         this.time = time;
         this.description = description;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {

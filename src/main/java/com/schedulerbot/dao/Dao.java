@@ -1,7 +1,5 @@
 package com.schedulerbot.dao;
 
-import com.schedulerbot.models.Event;
-
 import java.util.List;
 
 public interface Dao<T> {
@@ -9,5 +7,5 @@ public interface Dao<T> {
     List<T> getAll();
     T create(T t);
     T update(T t);
-    T delete(T t);
+    void delete(int id);
 }

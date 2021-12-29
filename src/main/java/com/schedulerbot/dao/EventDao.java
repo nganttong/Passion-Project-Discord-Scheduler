@@ -2,10 +2,8 @@ package com.schedulerbot.dao;
 
 import com.schedulerbot.models.Event;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EventDao implements Dao<Event> {
@@ -34,23 +32,73 @@ public class EventDao implements Dao<Event> {
 
     @Override
     public List<Event> getAll() {
-        return null;
+        List<Event> events = new ArrayList<>();
+        try{
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM event");
+
+            while(resultSet.next()){
+                Event event = eventFromResultSet(resultSet);
+                events.add(event);
+            }
+        } catch (SQLException exception){
+            exception.printStackTrace();
+        }
+        return events;
     }
 
     @Override
     public Event create(Event event) {
-        return null;
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO event VALUES" +
+                    " (DEFAULT, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, event.getTitle());
+            preparedStatement.setDate(2,event.getDate());
+            preparedStatement.setTime(3, event.getTime());
+            preparedStatement.setString(4, event.getDescription());
+            int i = preparedStatement.executeUpdate();
+            if (i == 1){
+                ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+                if(generatedKeys.next()){
+                    return getById(generatedKeys.getInt(1));
+                }
+            }
+        }catch (SQLException exception){
+            exception.printStackTrace();
+        }
+        return event;
     }
 
     @Override
     public Event update(Event event) {
-        return null;
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE event SET" +
+                    " (title=?, date=?, time=?, description=? WHERE id=?)", Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, event.getTitle());
+            preparedStatement.setDate(2,event.getDate());
+            preparedStatement.setTime(3, event.getTime());
+            preparedStatement.setString(4, event.getDescription());
+            int i = preparedStatement.executeUpdate();
+
+            if(i==1){
+                return getById(event.getId());
+            }
+        }catch(SQLException exception) {
+            exception.printStackTrace();
+        }
+        return event;
     }
 
     @Override
-    public Event delete(Event event) {
-        return null;
+    public void delete(int id) {
+        try{
+            Statement statement = connection.createStatement();
+            int i = statement.executeUpdate("DELETE FROM event WHERE id=" + id);
+        }catch(SQLException exception){
+            exception.printStackTrace();
+        }
     }
+
 //    Event getById(int id);
 //    List<Event> getAll();
 //    Event create(Event event);
