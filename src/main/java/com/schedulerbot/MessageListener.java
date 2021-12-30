@@ -25,7 +25,7 @@ public abstract class MessageListener {
 
     public MessageCreateMono parseCommand(Message message){
         String messageContent = message.getContent();
-
+        System.out.println("doing message thing" + messageContent);
         if (messageContent.equalsIgnoreCase("!todo")){
             return message.getChannel().block().createMessage("test");
         } else if (messageContent.equalsIgnoreCase("!create")){
