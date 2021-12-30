@@ -11,7 +11,6 @@ public abstract class MessageListener {
     public Mono<Void> processCommand(Message eventMessage) {
         if (eventMessage.getAuthor().map(user -> !user.isBot()).orElse(false)) {
             MessageCreateMono response = parseCommand(eventMessage);
-            response.then();
             return response != null ? response.then() : Mono.empty().then();
         }
         return Mono.empty();
