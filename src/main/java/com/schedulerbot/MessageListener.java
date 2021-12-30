@@ -12,7 +12,7 @@ public abstract class MessageListener {
         return Mono.just(eventMessage)
                 .filter(message -> message.getAuthor().map(user -> !user.isBot()).orElse(false))
 //                .filter(message -> message.getContent().equalsIgnoreCase("!todo"))
-                .flatMap(this::parseCommand)
+                .map(this::parseCommand)
                 .filter(Objects::nonNull)
 //                .flatMap(Message::getChannel)
 //                .flatMap(channel -> channel.createMessage("Things to do today:\n - write a bot\n - eat lunch\n - play a game"))
