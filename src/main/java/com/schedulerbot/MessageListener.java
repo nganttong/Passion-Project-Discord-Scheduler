@@ -11,7 +11,8 @@ public abstract class MessageListener {
     public Mono<Void> processCommand(Message eventMessage) {
         if (eventMessage.getAuthor().map(user -> !user.isBot()).orElse(false)) {
             MessageCreateMono response = parseCommand(eventMessage);
-            return Mono.just(response != null ? response : Mono.empty()).then();
+            response.then();
+            return response != null ? response.then() : Mono.empty().then();
         }
         return Mono.empty();
 //                .filter(message -> message.getAuthor().map(user -> !user.isBot()).orElse(false))
@@ -27,8 +28,10 @@ public abstract class MessageListener {
         String messageContent = message.getContent();
         System.out.println("doing message thing" + messageContent);
         if (messageContent.equalsIgnoreCase("!todo")){
+            System.out.println("doing todo");
             return message.getChannel().block().createMessage("test");
         } else if (messageContent.equalsIgnoreCase("!create")){
+            System.out.println("doing create");
             return message.getChannel().block().createMessage("create");
         }
         return null;
