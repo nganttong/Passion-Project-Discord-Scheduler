@@ -9,14 +9,18 @@ import java.util.Objects;
 public abstract class MessageListener {
 
     public Mono<Void> processCommand(Message eventMessage) {
-        return Mono.just(eventMessage)
-                .filter(message -> message.getAuthor().map(user -> !user.isBot()).orElse(false))
-//                .filter(message -> message.getContent().equalsIgnoreCase("!todo"))
-                .map(this::parseCommand)
-                .filter(Objects::nonNull)
-//                .flatMap(Message::getChannel)
-//                .flatMap(channel -> channel.createMessage("Things to do today:\n - write a bot\n - eat lunch\n - play a game"))
-                .then();
+        if (eventMessage.getAuthor().map(user -> !user.isBot()).orElse(false)) {
+            MessageCreateMono response = parseCommand(eventMessage);
+            return Mono.just(response != null ? response : Mono.empty()).then();
+        }
+        return Mono.empty();
+//                .filter(message -> message.getAuthor().map(user -> !user.isBot()).orElse(false))
+////                .filter(message -> message.getContent().equalsIgnoreCase("!todo"))
+//                .flatMap(this::parseCommand)
+//                .filter(Objects::nonNull)
+////                .flatMap(Message::getChannel)
+////                .flatMap(channel -> channel.createMessage("Things to do today:\n - write a bot\n - eat lunch\n - play a game"))
+//                .then();
     }
 
     public MessageCreateMono parseCommand(Message message){
