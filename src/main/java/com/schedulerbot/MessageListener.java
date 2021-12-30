@@ -7,7 +7,7 @@ import reactor.core.publisher.Mono;
 import java.util.Objects;
 
 public abstract class MessageListener {
-
+    private CommandHandler handler = new CommandHandler();
     public Mono<Void> processCommand(Message eventMessage) {
         if (eventMessage.getAuthor().map(user -> !user.isBot()).orElse(false)) {
             MessageCreateMono response = parseCommand(eventMessage);
@@ -27,11 +27,9 @@ public abstract class MessageListener {
         String messageContent = message.getContent();
         System.out.println("doing message thing" + messageContent);
         if (messageContent.equalsIgnoreCase("!todo")){
-            System.out.println("doing todo");
-            return message.getChannel().block().createMessage("test");
+            return handler.parseTodo(message);
         } else if (messageContent.equalsIgnoreCase("!create")){
-            System.out.println("doing create");
-            return message.getChannel().block().createMessage("create");
+            return handler.parseCreate(message);
         }
         return null;
     }
