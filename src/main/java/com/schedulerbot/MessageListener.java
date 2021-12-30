@@ -13,4 +13,13 @@ public abstract class MessageListener {
                 .flatMap(channel -> channel.createMessage("Things to do today:\n - write a bot\n - eat lunch\n - play a game"))
                 .then();
     }
+
+    public Mono<Void> processCreate(Message eventMessage) {
+        return Mono.just(eventMessage)
+                .filter(message -> message.getAuthor().map(user -> !user.isBot()).orElse(false))
+                .filter(message -> message.getContent().equalsIgnoreCase("!create"))
+                .flatMap(Message::getChannel)
+                .flatMap(channel -> channel.createMessage("No command"))
+                .then();
+    }
 }
