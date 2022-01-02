@@ -1,19 +1,22 @@
 package com.schedulerbot.dao;
 
+import com.schedulerbot.config.DatabaseConfig;
 import com.schedulerbot.models.Event;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Configuration
 public class EventDao implements Dao<Event> {
-    @Value("${spring.datasource.urlpostgres}")
-    public static String DB_URL;
 
-    Connection connection = ConnectionFactory.getConnection(DB_URL);
+    @Autowired
+    private Connection connection;
+
     @Override
     public Event getById(int id) {
         try{

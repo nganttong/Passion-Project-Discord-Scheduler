@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 @Configuration
 public class DatabaseConfig {
@@ -15,9 +17,14 @@ public class DatabaseConfig {
     private String dbUrl;
 
     @Bean
-    public DataSource dataSource() {
+    public Connection dataSource() {
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(dbUrl);
-        return new HikariDataSource(config);
+        try {
+            return new HikariDataSource(config).getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage());
+
+        }
     }
 }
