@@ -17,7 +17,7 @@ public class DatabaseConfig {
     private String dbUrl;
 
     @Bean
-    public Connection dataSource() {
+    public Connection connection() {
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(dbUrl);
         try {
