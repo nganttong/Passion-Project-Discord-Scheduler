@@ -8,12 +8,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-@Configuration
 public class ConnectionFactory {
-    @Value("${spring.datasource.urlpostgres}")
-    public static String DB_URL;
 
-    public static Connection getConnection() {
+    public static Connection getConnection(String DB_URL) {
         try{
         System.out.println(DB_URL);
             return DriverManager.getConnection(DB_URL);
