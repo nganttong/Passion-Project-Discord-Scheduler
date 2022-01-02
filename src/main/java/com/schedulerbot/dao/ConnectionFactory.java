@@ -1,11 +1,14 @@
 package com.schedulerbot.dao;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionFactory {
-    public static final String DB_URL = System.getenv("spring.datasource.urlpostgres");
+    @Value("${spring.datasource.urlpostgres}")
+    public static String DB_URL;
 
     public static Connection getConnection() {
         try{
