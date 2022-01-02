@@ -9,6 +9,7 @@ public class ConnectionFactory {
 
     public static Connection getConnection() {
         try{
+        System.out.println(DB_URL);
             return DriverManager.getConnection(DB_URL);
         } catch (SQLException exception){
             throw new RuntimeException("Error connecting to the databse");
