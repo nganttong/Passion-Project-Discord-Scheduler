@@ -4,8 +4,10 @@ import org.springframework.cglib.core.Local;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Locale;
 
 public class Event {
     String title;
@@ -59,5 +61,28 @@ public class Event {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Event (String rawString) throws Exception{
+        String[] splitString = rawString.split("\n");
+        if (splitString.length != 4){
+            throw new Exception("Invalid number of fields");
+        }
+        this.title = splitString[0];
+        this.date = new Date(new SimpleDateFormat("dd/MM/yyyy").parse(splitString[1]).getTime());
+        String rawTime = splitString[2].toLowerCase(Locale.ROOT);
+        if (rawTime.endsWith("am") || rawTime.endsWith("pm")){
+            String rawTimestamp = rawTime.split(" ")[0];
+            String[] splitColon = rawTimestamp.split(":");
+            int hour = Integer.parseInt(splitColon[0]);
+            int minute = Integer.parseInt(splitColon[1]);
+            if (rawTime.endsWith("pm")) {
+                hour += 12;
+            }
+            this.time = new Time(hour, minute, 0);
+        } else {
+            throw new Exception("Invalid time format, please format time as HH:MM AM or PM");
+        }
+        this.description = splitString[3];
     }
 }

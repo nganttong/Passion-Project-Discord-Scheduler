@@ -28,8 +28,12 @@ public abstract class MessageListener {
         System.out.println("doing message thing" + messageContent);
         if (messageContent.equalsIgnoreCase("!todo")){
             return handler.parseTodo(message);
-        } else if (messageContent.equalsIgnoreCase("!create")){
+        } else if (messageContent.equalsIgnoreCase("!create ")){
             return handler.parseCreate(message);
+        } else if (messageContent.equalsIgnoreCase("!update")){
+            return handler.parseUpdate(message);
+        } else if (messageContent.equalsIgnoreCase("!delete")) {
+            return handler.parseDelete(message);
         }
         return null;
     }
