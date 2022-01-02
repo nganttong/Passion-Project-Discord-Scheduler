@@ -7,7 +7,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionFactory {
-    @Value("${spring.datasource.urlpostgres}")
+    @Value("${urlpostgres}")
     public static String DB_URL;
 
     public static Connection getConnection() {
