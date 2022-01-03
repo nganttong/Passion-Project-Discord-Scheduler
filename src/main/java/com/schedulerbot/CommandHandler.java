@@ -53,7 +53,7 @@ public class CommandHandler {
         if (event != null) {
             return message.getChannel().block().createMessage(event.toString());
         }
-        return message.getChannel().block().createMessage("Unable to fine even with Id: " + id);
+        return message.getChannel().block().createMessage("Unable to fine event with Id: " + id);
     }
 
 }
