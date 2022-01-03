@@ -85,4 +85,15 @@ public class Event {
         }
         this.description = splitString[3];
     }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "title='" + title + '\'' +
+                ", date=" + date +
+                ", time=" + time +
+                ", description='" + description + '\'' +
+                ", id=" + id +
+                '}';
+    }
 }

@@ -23,18 +23,21 @@ public abstract class MessageListener {
 //                .then();
     }
 
-    public MessageCreateMono parseCommand(Message message){
+    public MessageCreateMono parseCommand(Message message) {
         String messageContent = message.getContent();
         System.out.println("doing message thing" + messageContent);
-        if (messageContent.equalsIgnoreCase("!todo")){
+        if (messageContent.equalsIgnoreCase("!todo")) {
             return handler.parseTodo(message);
-        } else if (messageContent.startsWith("!create ")){
+        } else if (messageContent.startsWith("!create ")) {
             return handler.parseCreate(message);
-        } else if (messageContent.equalsIgnoreCase("!update")){
+        } else if (messageContent.equalsIgnoreCase("!update ")) {
             return handler.parseUpdate(message);
-        } else if (messageContent.equalsIgnoreCase("!delete")) {
+        } else if (messageContent.equalsIgnoreCase("!delete ")) {
+            return handler.parseDelete(message);
+        } else if (messageContent.equalsIgnoreCase("!info ")) {
             return handler.parseDelete(message);
         }
         return null;
     }
+
 }

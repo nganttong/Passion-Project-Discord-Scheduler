@@ -32,5 +32,10 @@ public class CommandHandler {
         return message.getChannel().block().createMessage("delete");
     }
 
+    public MessageCreateMono parseInfo(Message message){
+        int id = Integer.parseInt(message.getContent().split(" ")[1]);
+        Event event = eventDao.getById(id);
+        return message.getChannel().block().createMessage(event.toString());
+    }
 
 }
