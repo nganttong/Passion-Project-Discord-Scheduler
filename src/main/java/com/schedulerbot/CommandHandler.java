@@ -50,7 +50,10 @@ public class CommandHandler {
             return message.getChannel().block().createMessage("Error parsing Id: " + content);
         }
         Event event = eventDao.getById(id);
-        return message.getChannel().block().createMessage(event.toString());
+        if (event != null) {
+            return message.getChannel().block().createMessage(event.toString());
+        }
+        return message.getChannel().block().createMessage("Unable to fine even with Id: " + id);
     }
 
 }
