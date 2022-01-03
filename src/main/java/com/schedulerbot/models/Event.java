@@ -69,7 +69,7 @@ public class Event {
             throw new Exception("Invalid number of fields");
         }
         this.title = splitString[0];
-        this.date = new Date(new SimpleDateFormat("dd/MM/yyyy").parse(splitString[1]).getTime());
+        this.date = new Date(new SimpleDateFormat("MM/dd/yyyy").parse(splitString[1]).getTime());
         String rawTime = splitString[2].toLowerCase(Locale.ROOT);
         if (rawTime.endsWith("am") || rawTime.endsWith("pm")){
             String rawTimestamp = rawTime.split(" ")[0];
