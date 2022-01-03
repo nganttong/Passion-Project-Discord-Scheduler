@@ -10,7 +10,8 @@ import java.sql.SQLException;
 
 public class ConnectionFactory {
 
-    public static Connection getConnection(String DB_URL) {
+    public static Connection getConnection() {
+        String DB_URL = System.getenv("JDBC_DATABASE_URL");
         try{
         System.out.println(DB_URL);
             return DriverManager.getConnection(DB_URL);

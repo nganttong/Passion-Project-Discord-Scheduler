@@ -14,22 +14,13 @@ import java.util.List;
 
 public class EventDao implements Dao<Event> {
 
-    @Autowired
-    private DatabaseConfig config;
+    private final Connection connection = ConnectionFactory.getConnection();
 
-    private Connection connection;
-
-    private Connection getConnection(){
-        if (connection == null) {
-            connection = config.connection();
-        }
-        return connection;
-    }
 
     @Override
     public Event getById(int id) {
         try{
-            Statement statement = getConnection().createStatement();
+            Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM event WHERE id=" + id);
             if(resultSet.next()){
                 return eventFromResultSet(resultSet);
@@ -52,7 +43,7 @@ public class EventDao implements Dao<Event> {
     public List<Event> getAll() {
         List<Event> events = new ArrayList<>();
         try{
-            Statement statement = getConnection().createStatement();
+            Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM event");
 
             while(resultSet.next()){
@@ -68,7 +59,7 @@ public class EventDao implements Dao<Event> {
     @Override
     public Event create(Event event) {
         try{
-            PreparedStatement preparedStatement = getConnection().prepareStatement("INSERT INTO event VALUES" +
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO event VALUES" +
                     " (DEFAULT, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, event.getTitle());
             preparedStatement.setDate(2,event.getDate());
@@ -90,7 +81,7 @@ public class EventDao implements Dao<Event> {
     @Override
     public Event update(Event event) {
         try{
-            PreparedStatement preparedStatement = getConnection().prepareStatement("UPDATE event SET" +
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE event SET" +
                     " (title=?, date=?, time=?, description=? WHERE id=?)", Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, event.getTitle());
             preparedStatement.setDate(2,event.getDate());
@@ -110,7 +101,7 @@ public class EventDao implements Dao<Event> {
     @Override
     public void delete(int id) {
         try{
-            Statement statement = getConnection().createStatement();
+            Statement statement = connection.createStatement();
             int i = statement.executeUpdate("DELETE FROM event WHERE id=" + id);
         }catch(SQLException exception){
             exception.printStackTrace();
