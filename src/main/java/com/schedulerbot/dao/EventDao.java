@@ -32,11 +32,13 @@ public class EventDao implements Dao<Event> {
     }
 
     private Event eventFromResultSet(ResultSet resultSet) throws SQLException{
-        return new Event(
-                resultSet.getString(1),
-                resultSet.getDate(2),
-                resultSet.getTime(3),
-                resultSet.getString(4));
+        Event event = new Event(
+                resultSet.getString(2),
+                resultSet.getDate(3),
+                resultSet.getTime(4),
+                resultSet.getString(5));
+        event.setId(resultSet.getInt(1));
+        return event;
     }
 
     @Override
