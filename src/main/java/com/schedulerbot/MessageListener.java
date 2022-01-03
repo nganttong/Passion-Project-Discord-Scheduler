@@ -35,7 +35,7 @@ public abstract class MessageListener {
         } else if (messageContent.equalsIgnoreCase("!delete ")) {
             return handler.parseDelete(message);
         } else if (messageContent.equalsIgnoreCase("!info ")) {
-            return handler.parseDelete(message);
+            return handler.parseInfo(message);
         }
         return null;
     }
