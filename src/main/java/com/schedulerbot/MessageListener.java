@@ -4,7 +4,6 @@ import discord4j.core.object.entity.Message;
 import discord4j.core.spec.MessageCreateMono;
 import reactor.core.publisher.Mono;
 
-import java.util.Objects;
 
 public abstract class MessageListener {
     private CommandHandler handler = new CommandHandler();
@@ -14,13 +13,6 @@ public abstract class MessageListener {
             return response != null ? response.then() : Mono.empty().then();
         }
         return Mono.empty();
-//                .filter(message -> message.getAuthor().map(user -> !user.isBot()).orElse(false))
-////                .filter(message -> message.getContent().equalsIgnoreCase("!todo"))
-//                .flatMap(this::parseCommand)
-//                .filter(Objects::nonNull)
-////                .flatMap(Message::getChannel)
-////                .flatMap(channel -> channel.createMessage("Things to do today:\n - write a bot\n - eat lunch\n - play a game"))
-//                .then();
     }
 
     public MessageCreateMono parseCommand(Message message) {
@@ -30,8 +22,6 @@ public abstract class MessageListener {
             return handler.parseTodo(message);
         } else if (messageContent.startsWith("!create ")) {
             return handler.parseCreate(message);
-        } else if (messageContent.startsWith("!update ")) {
-            return handler.parseUpdate(message);
         } else if (messageContent.startsWith("!delete ")) {
             return handler.parseDelete(message);
         } else if (messageContent.startsWith("!info ")) {

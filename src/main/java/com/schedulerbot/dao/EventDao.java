@@ -102,13 +102,17 @@ public class EventDao implements Dao<Event> {
     }
 
     @Override
-    public void delete(int id) {
+    public boolean delete(int id) {
         try{
             Statement statement = connection.createStatement();
             int i = statement.executeUpdate("DELETE FROM event WHERE id=" + id);
+            if (i == 1){
+                return true;
+            }
         }catch(SQLException exception){
             exception.printStackTrace();
         }
+        return false;
     }
 
 //    Event getById(int id);

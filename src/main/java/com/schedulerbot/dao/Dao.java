@@ -7,5 +7,5 @@ public interface Dao<T> {
     List<T> getAll();
     T create(T t);
     T update(T t);
-    void delete(int id);
+    boolean delete(int id);
 }

@@ -24,12 +24,21 @@ public class CommandHandler {
         return message.getChannel().block().createMessage("Event created! Id: " + returnedEvent.getId());
     }
 
-    public MessageCreateMono parseUpdate(Message message){
-        return message.getChannel().block().createMessage("update");
-    }
 
     public MessageCreateMono parseDelete(Message message){
-        return message.getChannel().block().createMessage("delete");
+        int id;
+        String content = message.getContent().substring(8);
+        try {
+            id = Integer.parseInt(content);
+        } catch (Exception e) {
+            return message.getChannel().block().createMessage("Error deleting Id: " + content);
+        }
+        Boolean result = eventDao.delete(id);
+        if (result = true) {
+            return message.getChannel().block().createMessage("Event deleted.");
+        } else {
+            return message.getChannel().block().createMessage("Could not delete event with Id: " + content);
+        }
     }
 
     public MessageCreateMono parseInfo(Message message){
