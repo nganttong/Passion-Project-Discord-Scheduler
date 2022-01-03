@@ -30,11 +30,11 @@ public abstract class MessageListener {
             return handler.parseTodo(message);
         } else if (messageContent.startsWith("!create ")) {
             return handler.parseCreate(message);
-        } else if (messageContent.equalsIgnoreCase("!update ")) {
+        } else if (messageContent.startsWith("!update ")) {
             return handler.parseUpdate(message);
-        } else if (messageContent.equalsIgnoreCase("!delete ")) {
+        } else if (messageContent.startsWith("!delete ")) {
             return handler.parseDelete(message);
-        } else if (messageContent.equalsIgnoreCase("!info ")) {
+        } else if (messageContent.startsWith("!info ")) {
             return handler.parseInfo(message);
         }
         return null;
