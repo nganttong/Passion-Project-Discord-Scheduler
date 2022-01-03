@@ -62,7 +62,7 @@ public class EventDao implements Dao<Event> {
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO event VALUES" +
                     " (DEFAULT, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, event.getTitle());
-            preparedStatement.setDate(2, event.getDate());
+            preparedStatement.setString(2, event.getDate().toString());
             preparedStatement.setString(3, event.getTime().toString());
             preparedStatement.setString(4, event.getDescription());
             System.out.println(preparedStatement);
