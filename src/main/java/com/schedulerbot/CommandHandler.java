@@ -20,8 +20,8 @@ public class CommandHandler {
         } catch (Exception e) {
             return message.getChannel().block().createMessage("Invalid formatting: " + e.getMessage());
         }
-        eventDao.create(formattedEvent);
-        return message.getChannel().block().createMessage("Event created!");
+        Event returnedEvent = eventDao.create(formattedEvent);
+        return message.getChannel().block().createMessage("Event created! Id: " + returnedEvent);
     }
 
     public MessageCreateMono parseUpdate(Message message){
