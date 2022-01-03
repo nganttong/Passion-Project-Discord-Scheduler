@@ -33,7 +33,13 @@ public class CommandHandler {
     }
 
     public MessageCreateMono parseInfo(Message message){
-        int id = Integer.parseInt(message.getContent().split(" ")[1]);
+        int id;
+        String content = message.getContent().substring(6);
+        try {
+            id = Integer.parseInt(content);
+        } catch (Exception e) {
+            return message.getChannel().block().createMessage("Error parsing Id: " + content);
+        }
         Event event = eventDao.getById(id);
         return message.getChannel().block().createMessage(event.toString());
     }
